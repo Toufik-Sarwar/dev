@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compact News Card Maker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: #121212; color: white; padding: 20px; }
+        .editor-section { background: #1e1e1e; padding: 20px; border-radius: 12px; border: 1px solid #333; }
+        
+        #photocard {
+            width: 650px;
+            height: 720px; /* উচ্চতা কমানো হয়েছে গ্যাপ দূর করতে */
+            background: radial-gradient(circle at top, #001f4d 0%, #000 100%);
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 25px;
+        }
+
+        .top-date {
+            background: white;
+            color: black;
+            padding: 4px 22px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 15px;
+            z-index: 10;
+            position: relative;
+            margin-bottom: -18px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .image-frame {
+            width: 92%;
+            height: 380px;
+            border: 3px solid #ffcc00;
+            border-radius: 15px;
+            overflow: hidden;
+            z-index: 5;
+        }
+        #bg-image { width: 100%; height: 100%; object-fit: cover; }
+
+        .content-area {
+            width: 100%;
+            padding: 15px 35px 0 35px; /* নিচের প্যাডিং ০ করা হয়েছে */
+            text-align: center;
+        }
+
+        .headline {
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1.25;
+            color: #ffcc00; 
+            margin: 0;
+        }
+
+        /* লোগো, কিউআর ও টেক্সট সেকশন - ফাঁকা জায়গা কমিয়ে শিরোনামের কাছে আনা হয়েছে */
+        .bottom-info {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 45px;
+            margin-top: 15px; /* শিরোনাম থেকে দূরত্ব কমানো হয়েছে */
+            margin-bottom: auto; /* বাড়তি ফাঁকা জায়গা নিচে ঠেলে দেবে */
+        }
+
+        .logo-section img { height: 50px; max-width: 140px; object-fit: contain; }
+        .logo-section p { color:#bbb; font-size: 12px; margin: 2px 0 0 0; }
+        .more-text { color: #ffcc00; font-size: 18px; font-weight: 700; margin: 0; }
+        .qr-box { background: white; padding: 3px; border-radius: 4px; width: 70px; height: 70px; }
+
+        .footer-banner {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #b30000, #ff0000);
+            padding: 8px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 17px;
+        }
+
+        .btn-download { background: #ffcc00; color: #000; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; margin-top: 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5 mb-4">
+            <div class="editor-section">
+                <h4 class="mb-3 text-warning">নিউজ কার্ড এডিটর</h4>
+                <div class="mb-2"><label class="small fw-bold">লোগো (ঐচ্ছিক)</label><input type="file" class="form-control" id="logoInp" accept="image/*"></div>
+                <div class="mb-2"><label class="small fw-bold">খবরের ছবি</label><input type="file" class="form-control" id="imgInp" accept="image/*"></div>
+                <div class="mb-2"><label class="small fw-bold">শিরোনাম</label><textarea class="form-control" id="titleInp" rows="2" placeholder="সংবাদ শিরোনাম..."></textarea></div>
+                <div class="mb-3"><label class="small fw-bold">ফুটার টেক্সট</label><input type="text" class="form-control" id="footerInp" value="দেশ ও বিদেশের সর্বশেষ খবর"></div>
+                <button class="btn-download" onclick="downloadImage()">ডাউনলোড করুন</button>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div id="photocard">
+                <div class="top-date" id="outDate">১২ জানুয়ারি, ২০২৬</div>
+                <div class="image-frame"><img id="bg-image" src="https://via.placeholder.com/600x400/222/555?text=Upload+Image"></div>
+                
+                <div class="content-area">
+                    <h1 class="headline" id="outTitle">আপনার সংবাদের শিরোনামটি এখানে প্রদর্শিত হবে</h1>
+                </div>
+
+                <div class="bottom-info">
+                    <div class="logo-section text-center">
+                        <img id="logo-pre" src="https://i.ibb.co/Lz9f7hY/logo.png" alt="Logo">
+                        <p>আজ এবং আগামীর</p>
+                    </div>
+                    <div class="text-center"><p class="more-text">বিস্তারিত কমেন্টে</p></div>
+                    <div class="qr-section">
+                        <div class="qr-box"><img src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data=https://yournews.com" style="width:100%"></div>
+                    </div>
+                </div>
+
+                <div class="footer-banner" id="outFooter">দেশ ও বিদেশের সর্বশেষ খবর</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('titleInp').addEventListener('input', (e) => { document.getElementById('outTitle').innerText = e.target.value || "আপনার সংবাদের শিরোনাম"; });
+    document.getElementById('footerInp').addEventListener('input', (e) => { document.getElementById('outFooter').innerText = e.target.value; });
+
+    function setupImage(inputId, targetId) {
+        document.getElementById(inputId).addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => document.getElementById(targetId).src = e.target.result;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    }
+    setupImage('imgInp', 'bg-image'); setupImage('logoInp', 'logo-pre');
+    
+    function downloadImage() {
+        html2canvas(document.querySelector("#photocard"), { scale: 2, useCORS: true }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'News_Card_Toufik.png';
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+        });
+    }
+</script>
+</body>
+</html>

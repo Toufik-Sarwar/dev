@@ -1,0 +1,432 @@
+/* style.css */
+body { background-color: #020617; color: #f8fafc; font-family: 'Inter', sans-serif; }
+
+/*hero v2 section */
+.hero-custom {
+    margin-top:100px;
+    width: 100%;
+    position: relative;
+    background-color: #0b0f19; /* ইমেজের পেছনে ডার্ক ব্যাকগ্রাউন্ড */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* আপনার আপলোড করা ইমেজটি এখানে লিঙ্ক করুন */
+.hero-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    background: url('toufik1.jpg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.15; /* ইমেজটি আরও হালকা করার জন্য এটি কমিয়ে ০.১ করতে পারেন */
+    z-index: 1;
+}
+
+.hero-dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #0b0f19 20%, transparent 100%);
+    z-index: 2;
+}
+
+.hero-content-wrapper {
+    position: relative;
+    z-index: 3;
+}
+
+/* নাম এবং ফন্ট সাইজ */
+.user-name-title {
+    font-size: clamp(1.25rem, 5vw, 2.5rem); /* ফোনে ছোট, পিসিতে বড় হবে */
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -1px;
+    margin-bottom: 0;
+    padding-top: 18%;
+}
+@media (min-width: 577px) {
+    .user-name-title {
+        padding-top: 58%;
+        font-size: clamp(2.5rem, 10vw, 5rem);
+        
+    }
+}
+
+.typed-text {
+    font-size: clamp(1.2rem, 4vw, 2.2rem);
+    color: #38bdf8;
+    font-weight: 500;
+    
+}
+
+/* বাটন স্টাইল */
+.btn-custom-fill {
+    background: #38bdf8;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.btn-custom-outline {
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    
+}
+
+/* মোবাইলের জন্য বাটন ছোট করা */
+@media (max-width: 576px) {
+    .btn-custom-fill, .btn-custom-outline {
+        padding: 8px 18px;
+        font-size: 14px;
+    }
+}
+
+
+
+
+.gradient-text {
+    background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.backdrop-blur { background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+.hero-section { height: 100vh; background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #020617 100%); }
+.bg-dark-variant { background-color: #0f172a; }
+
+/* cursot glow efect*/
+.cursor-glow {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(2, 6, 23, 0) 70%);
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+/* Progress Bar Styling */
+.custom-progress {
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: visible; /* গ্লো ইফেক্ট দেখানোর জন্য */
+}
+
+.progress-bar {
+    width: 0; /* শুরুতে ০ থাকবে, JS দিয়ে বাড়বে */
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    border-radius: 10px;
+    position: relative;
+    transition: width 2s cubic-bezier(0.17, 0.67, 0.83, 0.67); /* স্মুথ অ্যানিমেশন */
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5); /* নিয়ন গ্লো */
+}
+
+.skill-item span {
+    color: #cbd5e1;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.skill-item {
+    margin-bottom: 10px;
+}
+
+
+<style>
+    /* কার্ডের ডিজাইন */
+    .custom-card {
+        border-radius: 20px;
+        transition: transform 0.4s ease, border-color 0.4s ease;
+        overflow: hidden;
+    }
+
+    .custom-card:hover {
+        transform: scale(1.03);
+        border-color: #0dcaf0 !important;
+    }
+
+    .card-img-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .img-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: 0.4s ease;
+    }
+
+    .custom-card:hover .img-overlay {
+        opacity: 1;
+    }
+
+    /* Swiper বাটনের রঙ পরিবর্তন */
+    .swiper-button-next, .swiper-button-prev {
+        color: #0dcaf0;
+        transform: scale(0.7);
+    }
+
+    .swiper-pagination-bullet {
+        background: #0dcaf0;
+    }
+</style>
+
+
+
+/* Testimonial Wrapper */
+.testimonial-wrapper {
+    width: 100%;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+
+/* Language Progress Bar Styling */
+.lang-progress {
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: visible;
+}
+
+.lang-item span {
+    color: #e2e8f0;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+/* Individual Colors */
+.bar-bengali { background: linear-gradient(90deg, #00b09b, #96c93d); box-shadow: 0 0 15px rgba(0, 176, 155, 0.4); }
+.bar-english { background: linear-gradient(90deg, #00d2ff, #3a7bd5); box-shadow: 0 0 15px rgba(0, 210, 255, 0.4); }
+.bar-hindi   { background: linear-gradient(90deg, #f093fb, #f5576c); box-shadow: 0 0 15px rgba(245, 87, 108, 0.4); }
+.bar-urdu    { background: linear-gradient(90deg, #5ee7df, #b490ca); box-shadow: 0 0 15px rgba(180, 144, 202, 0.4); }
+.bar-arabic  { background: linear-gradient(90deg, #667eea, #764ba2); box-shadow: 0 0 15px rgba(118, 75, 162, 0.4); }
+
+.progress-bar {
+    width: 0;
+    border-radius: 20px;
+    transition: width 2.5s cubic-bezier(0.1, 0.5, 0.5, 1);
+}
+
+
+
+/* Auto Scroll Animation */
+.testimonial-track {
+    display: flex;
+    width: calc(350px * 6); /* কার্ডের সংখ্যা অনুযায়ী উইডথ */
+    animation: scroll 30s linear infinite;
+    gap: 30px;
+    padding: 20px 0;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-350px * 3)); }
+}
+
+/* Floating Card Design */
+.testimonial-card {
+    min-width: 350px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 20px;
+    transition: 0.4s;
+    animation: float 4s ease-in-out infinite; /* উপরে ভেসে আসার ইফেক্ট */
+}
+
+/* একেকটি কার্ড একেক সময় ভাসবে */
+.testimonial-card:nth-child(even) {
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* মাউস নিলে অ্যানিমেশন থামবে */
+.testimonial-wrapper:hover .testimonial-track {
+    animation-play-state: paused;
+}
+
+.testimonial-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #6366f1;
+}
+
+/*visiding card*/
+.glass-card {
+    width: 360px;
+    height: 216px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: left;
+    position: relative;
+    transform-style: preserve-3d;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.card-content { transform: translateZ(50px); } /* টেক্সটগুলো একটু ভেসে থাকবে */
+
+.chip {
+    width: 45px;
+    height: 35px;
+    background: linear-gradient(135deg, #fceabb 0%, #f8b500 50%, #fceabb 100%);
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.user-name { font-size: 22px; letter-spacing: 3px; font-weight: bold; color: #fff; margin-bottom: 5px; }
+.designation { font-size: 14px; color: #38bdf8; letter-spacing: 2px; text-transform: uppercase; }
+.card-info { font-size: 12px; color: #cbd5e1; line-height: 1.8; }
+.logo-text { position: absolute; top: 30px; right: 30px; font-weight: 900; opacity: 0.3; }
+.rotate-90 { transform: rotate(90deg); color: #f8b500; font-size: 20px; }
+
+
+
+/* Modern Contact Box */
+.contact-box {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(15, 23, 42, 0.8);
+    padding: 50px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Floating Label Logic */
+.input-group-custom {
+    position: relative;
+}
+
+.input-group-custom input, .input-group-custom textarea {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group-custom label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    transition: 0.3s ease all;
+}
+
+/* যখন ইউজার টাইপ করবে তখন লেবেল উপরে উঠে যাবে */
+.input-group-custom input:focus ~ label,
+.input-group-custom input:valid ~ label,
+.input-group-custom textarea:focus ~ label,
+.input-group-custom textarea:valid ~ label {
+    top: -15px;
+    font-size: 12px;
+    color: #00f5ff;
+    font-weight: bold;
+}
+
+.bar {
+    position: relative;
+    display: block;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00f5ff, #a855f7);
+    transition: 0.4s ease all;
+}
+
+.input-group-custom input:focus ~ .bar, .input-group-custom textarea:focus ~ .bar {
+    width: 100%;
+}
+
+/* Send Button Animation */
+.send-btn {
+    background: linear-gradient(45deg, #6366f1, #a855f7);
+    border: none;
+    color: white;
+    padding: 15px 45px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.5s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.send-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #a855f7, #6366f1);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.send-btn:hover::before {
+    left: 0;
+}
+
+.send-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(168, 85, 247, 0.4);
+}
+
+
+/* Floating UI */
+.floating-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
+.wa-btn, .bot-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; border: none; transition: 0.3s; }
+.wa-btn { background: #22c55e; text-decoration: none; }
+.bot-btn { background: #6366f1; cursor: pointer; }
+
+/* Chatbot Styles */
+.chat-window { position: fixed; bottom: 85px; right: 20px; width: 330px; background: #1e293b; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; z-index: 1001; }
+.chat-header { background: #4f46e5; padding: 12px; color: white; }
+.chat-body { height: 300px; overflow-y: auto; padding: 15px; }
+.msg { padding: 8px 12px; border-radius: 12px; font-size: 14px; max-width: 80%; }
+.bot-msg { background: #334155; align-self: flex-start; }
+.user-msg { background: #4f46e5; align-self: flex-end; }
+
+/* Typing Dots */
+.typing span { height: 6px; width: 6px; background: #94a3b8; display: inline-block; border-radius: 50%; margin: 0 2px; animation: bounce 1.4s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
